@@ -1,0 +1,43 @@
+name: Deploy Backend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 仓库
+        uses: actions/checkout@v4
+
+      - name: 设置 Python 环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: pip install -r requirements.txt
+
+      - name: 运行测试 (可选)
+        run: echo "Running backend tests..." # Replace with actual test command, e.g., pytest
+
+      # Add your deployment steps here. Examples:
+      # - name: Build Docker Image
+      #   run: docker build -t my-flask-app .
+      # - name: Push Docker Image to Registry
+      #   run: docker push my-flask-app
+      # - name: Deploy to Server via SSH
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.SSH_HOST }}
+      #     username: ${{ secrets.SSH_USERNAME }}
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: |
+      #       cd /path/to/your/backend/app
+      #       git pull origin main
+      #       sudo systemctl restart your_flask_app.service
+
+
